@@ -72,7 +72,7 @@ with st.expander('药物剂量', expanded=True):
         
         # --------------------------------------------------------------------------
         
-        with st.expander('病历信息', expanded=True):
+with st.expander('病历信息', expanded=True):
         output = f'患者身高 {height} cm，体重 {weight} kg，体表面积 {bsa}，'
         
         try:
