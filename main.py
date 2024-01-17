@@ -5,3 +5,5 @@ if 'aid' in query_dict.keys():
     aid = query_dict['aid'][0]
     if aid == 'drug_dosage':
         st.switch_page(f"pages/{aid}.py")
+    if aid == 'breast_cancer_tnm_staging':
+        st.switch_page(f"pages/{aid}.py")
