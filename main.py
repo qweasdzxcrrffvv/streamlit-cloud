@@ -43,9 +43,9 @@ with st.expander('基本信息', expanded=True):
 
     # --------------------------------------------------------------------------
     
-    with st.expander('药物剂量', expanded=True):
+with st.expander('药物剂量', expanded=True):
         drugs = st.multiselect('药物', key='drugs', options=O.chemo_drugs())
-
+        
         for i in range(len(drugs)):  
             col1, col2, col3 = st.columns(3)
             standard = col1.selectbox(drugs[i], key=drugs[i], options=O.standard_dose())
@@ -53,7 +53,7 @@ with st.expander('基本信息', expanded=True):
             # 标准剂量 ----------------------------------------------------------
             standard_value = re.sub(' .*','',standard)
             standard_unit = re.sub('.*? ','',standard)
-
+        
             if standard_unit == 'mg/㎡' and bsa != '/':
                 standard_dose = int(standard_value) * float(bsa.replace(' ㎡',''))
                 standard_dose = str(int(standard_dose)) + ' mg'
@@ -69,29 +69,29 @@ with st.expander('基本信息', expanded=True):
             
             col2.text_input(drugs[i]+'丨标准剂量',key=drugs[i]+'丨标准剂量', value=standard_dose, disabled=True)
             col3.text_input(drugs[i]+'丨实际剂量',key=drugs[i]+'丨实际剂量')
-
-    # --------------------------------------------------------------------------
-
-    with st.expander('病历信息', expanded=True):
+        
+        # --------------------------------------------------------------------------
+        
+        with st.expander('病历信息', expanded=True):
         output = f'患者身高 {height} cm，体重 {weight} kg，体表面积 {bsa}，'
-
+        
         try:
             ccr = str(int(ccr))
             output += '血清肌酐 ' + str(scr) + ' ' + scr_unit + '，'
             output += '肌酐清除率 ' + str(ccr) + ' mL/min，'
         except:
             pass
-
+        
         output += '本周期具体治疗药物及总剂量为：'
-
+        
         for i, item in enumerate(drugs):
             standard = st.session_state[drugs[i]]
             standard_dose = st.session_state[drugs[i]+'丨标准剂量']
             final_dose = st.session_state[drugs[i]+'丨实际剂量']
-
+        
             output += drugs[i] + ' (' + standard
             output += '; 标准剂量 ' + standard_dose 
             output += '; 实际剂量 ' + final_dose + ' mg）、'
-
+        
         output = output[0:-1] + '。'
         st.caption(output.strip())
