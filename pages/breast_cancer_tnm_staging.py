@@ -1,6 +1,4 @@
 import streamlit as st
-from modules import m_streamlit_enhance as stE
-
 ## =============================================================================    
 
 t = [
@@ -64,13 +62,15 @@ with con:
 
 # --------------------------------------------------------------------------
 
-stE.set_blank()
+def set_html(html, container=st):
+    container.write(html, unsafe_allow_html=True)
+
 with st.expander('T', expanded=True):
-    stE.set_html(list_to_html(t))
+    set_html(list_to_html(t))
 with st.expander('N', expanded=True):
-    stE.set_html(list_to_html(n))
+    set_html(list_to_html(n))
 with st.expander('M', expanded=True):
-    stE.set_html(list_to_html(m))
+    set_html(list_to_html(m))
 
 # --------------------------------------------------------------------------
 
@@ -105,7 +105,11 @@ with con:
 
 # --------------------------------------------------------------------------
 
-stE.set_css_codes('''
+def set_css_codes(css_codes):
+    css_codes = css_codes.replace('\n','').strip()
+    st.sidebar.write(f'<div class="st_styles"><style>{css_codes}</style></div>', unsafe_allow_html=True)
+
+set_css_codes('''
 
     .html_list li {
         zoom:0.9;
@@ -117,4 +121,3 @@ stE.set_css_codes('''
     }
 
 ''')
-
