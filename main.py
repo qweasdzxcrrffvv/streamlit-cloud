@@ -42,7 +42,7 @@ for item in range(1, 3001):
 for item in range(1, 11):
     o_standard_dose.append(str(item) + ' AUC')
 # ==============================================================================
-def f_bsa():
+def f_bsa(height_as_cm, weight_as_kg):
     height_as_cm = int(height_as_cm)
     weight_as_kg = int(weight_as_kg)    
     tBSA = 0.0061 * height_as_cm + 0.0124 * weight_as_kg - 0.0099
