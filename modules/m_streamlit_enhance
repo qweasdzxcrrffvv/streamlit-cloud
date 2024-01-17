@@ -1,0 +1,48 @@
+import streamlit as st
+## =============================================================================    
+def set_html(html, container=st):
+    container.write(html, unsafe_allow_html=True)
+## =============================================================================    
+def try_get(st_session_state_key, false_value):
+    try:
+        return st.session_state[st_session_state_key]
+    except:
+        return false_value
+## =============================================================================    
+def set_css_codes(css_codes):
+    css_codes = css_codes.replace('\n','').strip()
+    st.sidebar.write(f'<div class="st_styles"><style>{css_codes}</style></div>', unsafe_allow_html=True)
+## =============================================================================    
+def set_blank(container=st):
+    container.write('<br>', unsafe_allow_html=True)
+## =============================================================================    
+def hide_menu():
+    set_css_codes('#MainMenu {visibility: hidden}')
+## =============================================================================    
+def hide_sidebar_close():
+    set_css_codes('[data-testid="stSidebar"] button>svg[aria-hidden="true"] {visibility: hidden}')
+## =============================================================================    
+def hide_st_alert():
+    set_css_codes('.stAlert{display:none}')
+## =============================================================================    
+def set_html_button(title, url, container=st):
+    html = f'''
+        <button 
+            class="st_html_button" 
+            style="
+                background:#F9F9FB; 
+                border:1px solid #ddd; 
+                border-radius:10px;
+                width:100%;
+                padding-top:2px;
+                padding-bottom:2px;     
+        "><a href="{url}" 
+            style="
+                text-decoration:none; 
+                color:#777; 
+                zoom:0.9;
+                display:block;
+        ">{title}</a>
+        </button>
+    '''
+    set_html(html.replace('\n',''), container)
